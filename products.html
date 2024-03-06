@@ -14,6 +14,13 @@
       height: 90px;
     }
 
+    .logo {
+      position: absolute;
+      left: 50px;
+      top: -3%;
+      z-index: 1;
+    }
+
     .carousel {
       display: flex;
       justify-content: center;
@@ -170,7 +177,7 @@
 </head>
 <header>
   <div class="logo-bar">
-    <img src="img/logo.svg" class="logo" alt="logo">
+    <img style="top: -20%"src="img/logo.svg" class="logo" alt="logo">
   </div>
   <div class="black-bar">
     <a href="#" class="white-link">Главная</a>
@@ -305,17 +312,14 @@
 </script>
 
 <script>
-  // Add the following script after the existing fetch and catch blocks
 
   document.getElementById('products-container').addEventListener('click', function(e) {
     if (e.target && e.target.className === 'add-to-cart-button') {
       const productContainer = e.target.closest('.product-container');
-      const productId = productContainer.dataset.productId; // assuming each product container has a data attribute for product id
+      const productId = productContainer.dataset.productId;
       const orderInitUrl = 'http://kitaika39.ru:8000/api/orderinit';
 
-      fetch(orderInitUrl, {
-        method: 'GET'
-      })
+      fetch(orderInitUrl, { method: 'GET' })
         .then(response => response.json())
         .then(data => {
           const orderId = data.order_id;
@@ -336,7 +340,6 @@
             .then(response => response.json())
             .then(data => {
               const itemId = data.item_id;
-              // Change the style of the button after the successful request
               e.target.style.backgroundColor = '#E34234';
               e.target.querySelector('.add-to-cart-text').textContent = 'Добавлено';
               e.target.querySelector('.add-to-cart-text').style.color = 'white';
@@ -350,9 +353,6 @@
         });
     }
   });
-
-
-
 
 
 </script>
