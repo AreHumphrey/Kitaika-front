@@ -17,7 +17,7 @@
     .logo {
       position: absolute;
       left: 50px;
-      top: -3%;
+      top: -30%;
       z-index: 1;
     }
 
@@ -177,12 +177,12 @@
 </head>
 <header>
   <div class="logo-bar">
-    <img style="top: -20%"src="img/logo.svg" class="logo" alt="logo">
+    <img src="img/logo.svg" class="logo" alt="logo">
   </div>
   <div class="black-bar">
     <a href="#" class="white-link">Главная</a>
-    <a href="#" class="white-link">Местоположение</a>
-    <a href="#" class="white-link">Контакты</a>
+    <a href="https://yandex.ru/maps/-/CDFjIX9T" class="white-link">Местоположение</a>
+    <a href="contacts.html" class="white-link">Контакты</a>
   </div>
   <div class="white-bar">
 
@@ -234,7 +234,7 @@
 
 <div id="categories-container">
 
-  <p class="category-info">Информация о категории</p>
+  <p class="category-info"></p>
   <div class="product-row" id="products-container"></div>
 </div>
 
@@ -262,6 +262,7 @@
   </div>
 </footer>
 
+
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const categoryId = urlParams.get('category_id');
@@ -280,7 +281,6 @@
         productImage.src = product.image_path;
         productImage.classList.add('product-image');
 
-
         const productDescription = document.createElement('p');
         productDescription.textContent = product.about;
         productDescription.classList.add('product-description');
@@ -289,13 +289,57 @@
         productPrice.textContent = `${product.price} Р / ${product.calories}`;
         productPrice.classList.add('product-price');
 
-
         const addToCartButton = document.createElement('div');
         addToCartButton.classList.add('add-to-cart-button');
         const addToCartText = document.createElement('p');
         addToCartText.textContent = 'В корзину';
         addToCartText.classList.add('add-to-cart-text');
         addToCartButton.appendChild(addToCartText);
+
+        addToCartButton.addEventListener('click', async () => {
+          try {
+
+            const initOrderResponse = await fetch('https://kitaika39.ru/api/orderinit', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({})
+            });
+
+            if (!initOrderResponse.ok) {
+              throw new Error('Failed to initialize order');
+            }
+
+            const initOrderData = await initOrderResponse.json();
+            const orderId = initOrderData.order_id;
+
+            const addToCartResponse = await fetch('https://kitaika39.ru/api/addtocart', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                order_id: orderId,
+                product_id: product.product_id,
+                count: 1
+              })
+            });
+
+            if (!addToCartResponse.ok) {
+              throw new Error('Failed to add item to cart');
+            }
+
+            const addToCartData = await addToCartResponse.json();
+            const itemId = addToCartData.item_id;
+
+            addToCartButton.style.background = '#E34234';
+            addToCartText.style.color = 'white';
+            addToCartText.textContent = 'В корзине';
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        });
 
         productContainer.appendChild(productName);
         productContainer.appendChild(productImage);
@@ -309,53 +353,9 @@
     .catch(error => {
       console.error('Error fetching products:', error);
     });
-</script>
-
-<script>
-
-  document.getElementById('products-container').addEventListener('click', function(e) {
-    if (e.target && e.target.className === 'add-to-cart-button') {
-      const productContainer = e.target.closest('.product-container');
-      const productId = productContainer.dataset.productId;
-      const orderInitUrl = 'http://kitaika39.ru:8000/api/orderinit';
-
-      fetch(orderInitUrl, { method: 'GET' })
-        .then(response => response.json())
-        .then(data => {
-          const orderId = data.order_id;
-          const addToCartUrl = 'http://kitaika39.ru:8000/api/addtocart';
-          const requestData = {
-            order_id: orderId,
-            product_id: productId,
-            count: 1
-          };
-
-          fetch(addToCartUrl, {
-            method: 'POST',
-            body: JSON.stringify(requestData),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-            .then(response => response.json())
-            .then(data => {
-              const itemId = data.item_id;
-              e.target.style.backgroundColor = '#E34234';
-              e.target.querySelector('.add-to-cart-text').textContent = 'Добавлено';
-              e.target.querySelector('.add-to-cart-text').style.color = 'white';
-            })
-            .catch(error => {
-              console.error('Error adding to cart:', error);
-            });
-        })
-        .catch(error => {
-          console.error('Error initializing order:', error);
-        });
-    }
-  });
-
 
 </script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

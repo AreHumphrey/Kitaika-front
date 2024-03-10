@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/menu_body.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты</title>
+  <style>
+
+    .black-background {
+      background: #1B1B1B;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .white-rectangle {
+      background-color: white;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: left;
+      width: 90%;
+      max-width: 1600px;
+      margin: 20px 10px;
+      margin-top: 125px;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+
+    .logo {
+      position: absolute;
+      left: 50px;
+      top: -25%;
+      z-index: 1;
+    }
+
+
+    .contact-block {
+      display: flex;
+      align-items: center;
+      height: 100px;
+      justify-content: space-between;
+      padding: 0 170px;
+      background-color: #E34234;
+      color: white;
+      font-family: Cabin;
+      font-weight: 600;
+    }
+
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 200px;
+      background-color: #1E1E1E;
+      border-radius: 5px;
+    }
+
+    .button a {
+      color: white;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    .info-contacts {
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<header>
+  <div class="logo-bar">
+    <img src="img/logo.svg" class="logo" alt="logo">
+  </div>
+  <div class="black-bar">
+    <a href="#" class="white-link">Главная</a>
+    <a href="https://yandex.ru/maps/-/CDFjIX9T" class="white-link">Местоположение</a>
+    <a href="contacts.html" class="white-link">Контакты</a>
+  </div>
+  <div class="white-bar">
+
+    <label class="search">
+      <input type="text" placeholder="Поиск">
+    </label>
+
+    <div class="cart_div">
+      <a href="#" class="cart-icon"><img src="img/cart_icon.svg" alt="Корзина"></a>
+    </div>
+
+  </div>
+</header>
+<body>
+<div class="black-background">
+  <div class="white-rectangle">
+    <p class="info-contacts">Добро пожаловать в кафе «Китайка» по адресу: г. Калининград, Суворова 54у</p>
+    <div class="map-container">
+      <div style="position:relative;overflow:hidden;"><a
+        href="https://yandex.ru/maps/22/kaliningrad/?utm_medium=mapframe&utm_source=maps"
+        style="color:#eee;font-size:12px;position:absolute;top:0px;">Калининград</a><a
+        href="https://yandex.ru/maps/22/kaliningrad/house/ulitsa_aleksandra_suvorova_54u/ZkkYcgFkSkIAQFtufXp5eHtqbQ==/?from=mapframe&ll=20.464376%2C54.689799&source=mapframe&um=constructor%3AHpRI8Dnk2p2JmIBsn_KQgDIi-er01Rj8&utm_medium=mapframe&utm_source=maps&z=16.53"
+        style="color:#eee;font-size:12px;position:absolute;top:14px;">Улица Александра Суворова, 54У — Яндекс Карты</a>
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?from=mapframe&ll=20.464376%2C54.689799&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgoxNDQyMzYwOTIxElzQoNC-0YHRgdC40Y8sINCa0LDQu9C40L3QuNC90LPRgNCw0LQsINGD0LvQuNGG0LAg0JDQu9C10LrRgdCw0L3QtNGA0LAg0KHRg9Cy0L7RgNC-0LLQsCwgNTTQoyIKDQ23o0EVW8JaQg%2C%2C&source=mapframe&um=constructor%3AHpRI8Dnk2p2JmIBsn_KQgDIi-er01Rj8&utm_source=mapframe&z=16.53"
+          width="1300" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="contact-block">
+  <div class="text-content">
+    <div>Приходите, мы вас ждем!</div>
+    <div>Адрес: г. Калининград, Суворова 54у</div>
+  </div>
+  <div class="button">
+    <a href="https://yandex.ru/maps/-/CDFjIX9T">Карта</a>
+  </div>
+</div>
+
+
+
+</body>
+</html>
