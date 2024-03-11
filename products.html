@@ -182,7 +182,7 @@
   <div class="black-bar">
     <a href="#" class="white-link">Главная</a>
     <a href="https://yandex.ru/maps/-/CDFjIX9T" class="white-link">Местоположение</a>
-    <a href="contacts.html" class="white-link">Контакты</a>
+    <a href="contacts" class="white-link">Контакты</a>
   </div>
   <div class="white-bar">
 
@@ -264,6 +264,11 @@
 
 
   <script>
+    function getCookie(name) {
+      var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const categoryId = urlParams.get('category_id');
     fetch(`https://kitaika39.ru/api/getproducts/${categoryId}`)
@@ -296,11 +301,6 @@
           addToCartText.classList.add('add-to-cart-text');
           addToCartButton.appendChild(addToCartText);
 
-
-          function getCookie(name) {
-            var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
-            return matches ? decodeURIComponent(matches[1]) : undefined;
-          }
 
           addToCartButton.addEventListener('click', async () => {
             try {
