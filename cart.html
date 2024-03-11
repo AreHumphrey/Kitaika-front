@@ -1,0 +1,211 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menu_body.css">
+  <title>Order Information</title>
+  <style>
+
+    body {
+      padding-top: 150px;
+    }
+
+    .logo {
+      position: absolute;
+      left: 50px;
+      top: -30%;
+      z-index: 1;
+    }
+
+    .order-container {
+      width: 1310px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      border: 1px #A7A7A7 solid;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .item-info-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 15px;
+      font-family: Cabin;
+      font-weight: 500;
+      word-wrap: break-word;
+    }
+
+    .item-info-header > div {
+      width: 208px;
+      height: 45px;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .product-info {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    .product-info img {
+      width: 63px;
+      height: 53px;
+      margin-right: 10px;
+    }
+
+    .criteria {
+      width: 208px;
+      height: 45px;
+      font-size: 15px;
+      font-family: Cabin;
+      font-weight: 500;
+      word-wrap: break-word;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quantity-indicator {
+      width: 52px;
+      height: 36px;
+      border-radius: 20px;
+      background: #E34234;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .total-cost {
+      font-size: 25px;
+      font-family: Cabin;
+      font-weight: 500;
+      word-wrap: break-word;
+      margin-bottom: 10px;
+    }
+
+    .div-checkout-btn{
+      margin-left: 70%;
+    }
+
+
+    .checkout-btn {
+      width: 150px;
+      height: 40px;
+      background: #E34234;
+      border-radius: 20px;
+      border: #E34234;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkout-btn-text {
+      color: white;
+      font-size: 18px;
+      font-family: Raleway;
+      font-weight: 500;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<header>
+  <div class="logo-bar">
+    <img src="img/logo.svg" class="logo" alt="logo">
+  </div>
+  <div class="black-bar">
+    <a href="#" class="white-link">Главная</a>
+    <a href="#" class="white-link">Местоположение</a>
+    <a href="contacts.html" class="white-link">Контакты</a>
+
+  </div>
+  <div class="white-bar">
+
+    <label class="search">
+      <input type="text" placeholder="Поиск">
+    </label>
+
+    <div class="cart_div">
+      <a href="/cart.html" class="cart-icon"><img src="img/cart_icon.svg" alt="Корзина"></a>
+    </div>
+
+  </div>
+</header>
+
+<body>
+<div class="order-container" id="order-info">
+  <div class="total-cost">Ваш заказ</div>
+  <div class="item-info-header">
+    <div>Товар</div>
+    <div>Цена за 1 шт.</div>
+    <div>Кол-во</div>
+    <div>Итого</div>
+  </div>
+</div>
+
+
+<div class="div-checkout-btn">
+  <button class="checkout-btn">
+    <div class="checkout-btn-text">Оформить заказ</div>
+  </button>
+</div>
+
+
+<script>
+
+  function fetchOrderInfo(orderId) {
+    fetch(`https://kitaika39.ru/api/getitems/${orderId}`)
+      .then(response => response.json())
+      .then(data => {
+        displayOrderInfo(data);
+      })
+      .catch(error => {
+        console.error('Error fetching order information:', error);
+      });
+  }
+
+  function displayOrderInfo(orderData) {
+    const orderDiv = document.getElementById('order-info');
+    orderDiv.insertAdjacentHTML('beforeend', `<div style="height: 0px; border: 1px #A7A7A7 solid"></div>`);
+
+    orderData.items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('item');
+
+      const productInfo = `
+<div class="product-info">
+<img src="${item.product.image_path}" alt="${item.product.label}">
+<p>${item.product.label}</p>
+</div>
+<p class="criteria">${item.product.price}</p>
+<div class="quantity-indicator">${item.count}</div>
+<p class="criteria">${item.price}</p>
+`;
+
+      itemDiv.innerHTML = productInfo;
+      orderDiv.appendChild(itemDiv);
+    });
+
+    const totalCost = orderData.items.reduce((acc, item) => acc + item.price, 0);
+    const summaryDiv = document.createElement('div');
+    summaryDiv.classList.add('order-summary');
+    summaryDiv.innerHTML = `<p style="font-size: 23px; font-weight: 400;">Итого: ${totalCost}P</p>`;
+    orderDiv.appendChild(summaryDiv);
+  }
+
+  fetchOrderInfo(23);
+</script>
+</body>
+
+</html>
