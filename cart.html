@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Information</title>
+</head>
+
+<body>
+    <div id="order-info"></div>
+
+    <script>
+        function getCookie(name) {
+            var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        if (getCookie("order_id") == null) {
+
+            try {
+                const initOrderResponse = fetch('https://kitaika39.ru/api/orderinit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+
+                if (!initOrderResponse.ok) {
+                    throw new Error('Failed to initialize order');
+                }
+
+                const initOrderData = initOrderResponse.json();
+                const orderId = initOrderData.order_id;
+            } catch (error) {
+                console.error(error);
+            }
+
+        }
+        function fetchOrderInfo(orderId) {
+            fetch(`https://kitaika39.ru/api/getitems/${orderId}`)
+                .then(response => response.json())
+                .then(data => {
+                    displayOrderInfo(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching order information:', error);
+                });
+        }
+
+        function displayOrderInfo(orderData) {
+            const orderDiv = document.getElementById('order-info');
+            orderDiv.innerHTML = '';
+
+            const orderId = document.createElement('p');
+            orderId.textContent = `Order ID: ${orderData.order_id}`;
+            orderDiv.appendChild(orderId);
+
+            orderData.items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+
+                const productId = document.createElement('p');
+                productId.textContent = `Product ID: ${item.product.id}`;
+                itemDiv.appendChild(productId);
+
+                const productName = document.createElement('p');
+                productName.textContent = `Product Name: ${item.product.label}`;
+                itemDiv.appendChild(productName);
+
+                const productPrice = document.createElement('p');
+                productPrice.textContent = `Price: ${item.price}`;
+                itemDiv.appendChild(productPrice);
+
+                const productImage = document.createElement('img');
+                productImage.src = item.product.image_path;
+                productImage.alt = item.product.label;
+                itemDiv.appendChild(productImage);
+
+                orderDiv.appendChild(itemDiv);
+            });
+        }
+
+        fetchOrderInfo(getCookie("order_id"));
+    </script>
+</body>
+
+</html>
