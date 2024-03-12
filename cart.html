@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,7 +8,6 @@
   <link rel="stylesheet" href="css/menu_body.css">
   <title>Order Information</title>
   <style>
-
 
     body {
       padding-top: 150px;
@@ -20,12 +21,12 @@
     }
 
     .order-container {
+      padding: 20px;
       width: 1310px;
       margin: 0 auto;
       background: white;
       border-radius: 20px;
       border: 1px #A7A7A7 solid;
-      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -50,6 +51,13 @@
       justify-content: center;
     }
 
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      width: 100%;
+      justify-content: space-between;
+    }
 
     .product-info {
       display: flex;
@@ -94,7 +102,7 @@
       margin-bottom: 10px;
     }
 
-    .div-checkout-btn{
+    .div-checkout-btn {
       margin-left: 70%;
     }
 
@@ -114,7 +122,7 @@
 
     .checkout-btn-text {
       color: white;
-      font-size: 18px;
+      font-size: 20px;
       font-family: Raleway;
       font-weight: 500;
       word-wrap: break-word;
@@ -150,12 +158,11 @@
   <div class="total-cost">Ваш заказ</div>
   <div class="item-info-header">
     <div>Товар</div>
-    <div>Цена за 1 шт.</div>
+    <div><br>Цена за 1 шт.</div>
     <div>Кол-во</div>
     <div>Итого</div>
   </div>
 </div>
-
 
 <div class="div-checkout-btn">
   <a href="index.html" class="checkout-btn">
@@ -164,9 +171,7 @@
 </div>
 
 
-
 <script>
-
   function fetchOrderInfo(orderId) {
     fetch(`https://kitaika39.ru/api/getitems/${orderId}`)
       .then(response => response.json())
@@ -207,7 +212,7 @@
     orderDiv.appendChild(summaryDiv);
   }
 
-  fetchOrderInfo(23);
+  fetchOrderInfo(61);
 </script>
 </body>
 
