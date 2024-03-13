@@ -127,6 +127,39 @@
       font-weight: 500;
       word-wrap: break-word;
     }
+
+    footer {
+      background-color: #1E1E1E;
+      color: #E34234;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo_footer {
+      order: 1;
+      margin-right: 20px;
+    }
+
+    .contact-info {
+      order: 2;
+    }
+
+    .contact-info p {
+      margin: 0;
+      line-height: 1.5;
+    }
   </style>
 </head>
 
@@ -135,8 +168,8 @@
     <img src="img/logo.svg" class="logo" alt="logo">
   </div>
   <div class="black-bar">
-    <a href="#" class="white-link">Главная</a>
-    <a href="#" class="white-link">Местоположение</a>
+    <a href="index.html" class="white-link">Главная</a>
+    <a href="https://yandex.ru/maps/-/CDFjIX9T" class="white-link">Местоположение</a>
     <a href="contacts.html" class="white-link">Контакты</a>
 
   </div>
@@ -170,6 +203,28 @@
   </a>
 </div>
 
+<footer>
+  <div class="footer-content">
+
+    <div class="column">
+      <div class="logo_footer">
+        <img src="img/logo_footer.svg" alt="Logo">
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="contact-info">
+        <p>Заказ и доставка китайских <br> блюд в офис <br> Заказ и доставка китайских блюд <br> на дом</p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="contact-info">
+        <p>Телефон: +7 123 456 7890</p>
+        <p>Email: info@example.com</p>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
   function fetchOrderInfo(orderId) {
